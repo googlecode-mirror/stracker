@@ -1,0 +1,7 @@
+0 - Captcha was not filled
+1 - Invalid captcha was filled
+2 - Username does not exist
+3 - 
+100 - Could not connect to database server
+101 - Could not select database
+200 - Everything is fine (200: OK)
