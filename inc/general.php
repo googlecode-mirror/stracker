@@ -27,6 +27,7 @@ function g_defError($is_error, $id, $string, $debug = ""){
 	$err['id'] = $id; // Gives a numeric identifier for the error
 	$err['string'] = $string; // A textual representation of the error. MUST REFER TO THE $lang ARRAY!
 	$err['debug'] = $debug; // Contains the error string of the function that caused the error (if applicable)
+	return $err;
 }
 
 // g_req is a shorthand general_require_once for including specific files in the /inc folder using an array
@@ -34,11 +35,12 @@ function g_req($files[] = array()){
 	foreach($files as $filename){ // For each file listed in the array
 		require_once($cfg['baseurl'] . "inc/" . $filename . ".php"); // Require the file included, unless it already is
 	}
+	return;
 }
 
 function g_db_conn($database){
 	$handle = mysql_connect($cfg['db_host'],$cfg['db_user'],$cfg['db_pass']) or die(g_defError(true,100,$lang['dbconnectfailed']) and return $err);
 	mysql_select_db($database) or die(g_defError(true,101,$lang['dbselectfailed']) and return $err);
-	return($handle);
+	return $handle;
 }
 ?>
