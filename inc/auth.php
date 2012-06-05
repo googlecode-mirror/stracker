@@ -9,19 +9,19 @@
 // - auth_register                        //
 ////////////////////////////////////////////
 // Required includes:                     //
-   g_req(array("general"));               //
+// None						              //
 ////////////////////////////////////////////
 
 function auth_validate($takeuser,$takepass){
 	// Check Captcha
-	if ($_POST["recaptcha_response_field"]) { // Check wether the user entered something in the field
-        $resp = recaptcha_check_answer ($cfg['privatekey'],$_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]); // Check the response
-		if (!$resp->is_valid) { // The captcha is invalid
-			$e = g_defError(true, 1, $lang['wrongcaptcha'],$resp->error);
-        }
-	}else{
-		g_defError(true, 0, $lang['nocaptcha']); // Return error code 0 - Captcha field was empty
-	}
+	// if ($_POST["recaptcha_response_field"]) { // Check wether the user entered something in the field
+        // $resp = recaptcha_check_answer ($cfg['privatekey'],$_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]); // Check the response
+		// if (!$resp->is_valid) { // The captcha is invalid
+			// $e = g_defError(true, 1, $lang['wrongcaptcha'],$resp->error);
+        // }
+	// }else{
+		// g_defError(true, 0, $lang['nocaptcha']); // Return error code 0 - Captcha field was empty
+	// }
 	// Verify username/password combination
 	if($err['error'] === false)
 		$db_result = mysql_query("SELECT uid,salt,password FROM users WHERE username='" . $takeuser . "'"); // Query the database for the user information

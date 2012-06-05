@@ -27,11 +27,19 @@ function g_defError($is_error, $id, $string, $debug = ""){
 	$err['id'] = $id; // Gives a numeric identifier for the error
 	$err['string'] = $string; // A textual representation of the error. MUST REFER TO THE $lang ARRAY!
 	$err['debug'] = $debug; // Contains the error string of the function that caused the error (if applicable)
+	if($is_error){
+		$logged_err = "ERROR: ";
+	}else{
+		$logged_err = "OK: ";
+	}
+	$logged_err .= $id . " - " . $debug;
+	error_log($logged_err);
 	return $err;
 }
 
 // g_req is a shorthand general_require_once for including specific files in the /inc folder using an array
-function g_req($files[] = array()){ 
+function g_req(){ 
+	$files = func_get_args();
 	foreach($files as $filename){ // For each file listed in the array
 		require_once($cfg['baseurl'] . "inc/" . $filename . ".php"); // Require the file included, unless it already is
 	}

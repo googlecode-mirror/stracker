@@ -14,6 +14,13 @@ $lang = array(
 'correctuser' => 'The username is correct',
 'correctpass' => 'You have logged in successfully',
 'dbconnectfailed' => 'Could not connect to database server',
-'dbselectfailed' => 'Could not select database'
+'dbselectfailed' => 'Could not select database',
+'login' => 'Log in',
+'register' => 'Register',
+'fieldmissing' => 'You have not filled out all the required fields',
+'passmismatch' => 'The two passwords must be identical',
+'mailmismatch' => 'The two e-mail addresses must be identical',
+'usernameexists' => 'A user with this name already exists',
+'reg_complete' => 'You have been registered successfully'
 );
 ?>
