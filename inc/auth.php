@@ -50,10 +50,10 @@ function auth_validate($takeuser,$takepass){
 
 
 
-function auth_register($takeuser,$takepass,$takepass2,$takemail,$takemail2){
+function auth_register(){
 	$mail_tpl = mysql_fetch_array(mysql_query("SELECT * FROM mails WHERE active=true AND type='registration'"));
 	$resp = recaptcha_check_answer ($cfg['privatekey'],$_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]); // Check captcha response
-	if(!$takeuser | !$takepass | !$takepass2 | !$takemail | !$takemail2){
+	if(!$_POST['takeuser'] | !$_POST['$takepass'] | !$_POST['takepass2'] | !$_POST['takemail'] | !$_POST['takemail2']){
 		$e = g_defError(true,3,$lang['fieldmissing']);
 	}elseif($takepass != $takepass2){
 		$e = g_defError(true,4,$lang['passmismatch']);

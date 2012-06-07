@@ -5,6 +5,7 @@
 	
 $cfg = array(
 'baseurl' => '/', // Defines the root folder of STracker. Usually also the webroot.
+'publickey' => '123456789', // The public key used for the captcha turing tests
 'privatekey' => '123456789', // The private key used for the captcha turing tests
 'default_lang' => 'en_UK', // Default language file for new users
 'db_host' => 'localhost', // This defines the IP address or hostname for the MySQL database
