@@ -28,7 +28,6 @@ function auth_validate($takeuser,$takepass){
 			}else{
 				$redirect_loc = $cfg['baseurl'] . "home.php"; // Redirect to home page
 			}
-			header("302 Page moved temporarily"); // Set the "Page moved" header
 			header("Location: " . $redirect_loc); // Set the location header
 		}
 	}else{
@@ -49,21 +48,23 @@ function auth_register(){
 	$takepass = $_POST['takepass'];
 	$takepass2 = $_POST['takepass2'];
 	$db = g_db_conn();
-	//$resp = recaptcha_check_answer ($cfg['privatekey'],$_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]); // Check captcha response
+	$resp = recaptcha_check_answer ($cfg['privatekey'],$_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]); // Check captcha response
 	if(!$takeuser | !$takepass | !$takepass2 | !$takemail | !$takemail2){
 		$e = g_defError(true,3,$lang['fieldmissing']);
 	}elseif($takepass != $takepass2){
 		$e = g_defError(true,4,$lang['passmismatch']);
 	}elseif($takemail != $takemail2){
 		$e = g_defError(true,4,$lang['mailmismatch']);
-	}elseif(mysqli_query($db, "SELECT username FROM users WHERE username LIKE $takeuser")){
+	}elseif(mysqli_num_rows(mysqli_query($db, "SELECT username FROM users WHERE username LIKE '$takeuser'"))){
 		$e = g_defError(true,6,$lang['usernameexists'],mysql_error());
-//	}elseif(!$resp->is_valid) {
-//		$e = g_defError(true, 1, $lang['wrongcaptcha'],$resp->error);
+	}elseif(!$resp->is_valid) {
+		$e = g_defError(true, 1, $lang['wrongcaptcha'],$resp->error);
     }else{
 		$salt = md5(substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',5)),0,5));
 		$encryptedpass = hash("sha1",hash("sha512",hash("whirlpool",$takepass . $salt)));
 		mysqli_query($db, "INSERT INTO users SET username='$takeuser',password='$encryptedpass',salt='$salt',email='$takemail'");
+		$result = mysqli_fetch_array(mysqli_query($db, "SELECT salt FROM users WHERE username='$takeuser'"));
+		$salt = $result['salt'];
 		$result = mysqli_query($db, "SELECT * FROM mails WHERE active=1 AND type='registration'") or die("Could not retrieve mail template from DB: " . mysql_error());
 		$mail_tpl = mysqli_fetch_array($result);
 		$subject = str_replace("%username%",$takeuser,$mail_tpl['subject']);
