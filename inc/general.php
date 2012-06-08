@@ -11,14 +11,14 @@
 // - db_conn                              //
 ////////////////////////////////////////////
 // Required includes:                     //
-   g_req(array("config"));                //
+   require_once("config.php");            //
 ////////////////////////////////////////////
 
 // Include the language files, this is needed on all pages. Therefore it is put here
 if(empty($_SESSION['lang'])){
-	require_once($cfg['baseurl'] . "lang/" . $cfg['default_lang'] . ".php");
+	require_once("/lang/en_UK.php");
 }else{
-	require_once($cfg['baseurl'] . "lang/" . $_SESSION['lang'] . ".php");
+	require_once("/lang/" . $_SESSION['lang'] . ".php");
 }
 
 // g_defError is a shorthand for general_defineError and defines the error array in a more compact way
@@ -47,8 +47,11 @@ function g_req(){
 }
 
 function g_db_conn($database){
-	$handle = mysql_connect($cfg['db_host'],$cfg['db_user'],$cfg['db_pass']) or die(g_defError(true,100,$lang['dbconnectfailed']) and return $err);
-	mysql_select_db($database) or die(g_defError(true,101,$lang['dbselectfailed']) and return $err);
-	return $handle;
+	if($handle = mysql_connect($cfg['db_host'],$cfg['db_user'],$cfg['db_pass'])){
+		mysql_select_db($database) or die(g_defError(true,101,$lang['dbselectfailed']));
+		return $handle;
+	}else{
+		die(g_defError(true,100,$lang['dbconnectfailed']));
+	}
 }
 ?>
