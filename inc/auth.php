@@ -69,7 +69,7 @@ function auth_register(){
 		$subject = str_replace("%username%",$takeuser,$mail_tpl['subject']);
 		$message = str_replace("%username%",$takeuser,$mail_tpl['message']);
 		$message = str_replace("%link%",$cfg['baseurl'] . "activate.php?salt=" . $salt,$message);
-		mail($takemail,$subject,$message,"From:" . $cfg['email']);
+		mail($takemail,$subject,$message,"Content-type:text/html\r\nFrom:" . $cfg['email']);
 		$e = g_defError(false, 200, $lang['reg_complete']); // OK code - registered correctly
 	}
 	mysqli_close($db);

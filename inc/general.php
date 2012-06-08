@@ -11,16 +11,16 @@
 // - db_conn                              //
 ////////////////////////////////////////////
 // Required includes:                     //
-   require "/inc/config.php";      		  //
+   require "inc/config.php";      		  //
 ////////////////////////////////////////////
 // Start a session for saving variables related to the user
 session_start();
 
 // Include the language files, this is needed on all pages. Therefore it is put here
 if(empty($_SESSION['lang'])){
-	require_once("/lang/en_UK.php");
+	require_once("lang/en_UK.php");
 }else{
-	require_once("/lang/" . $_SESSION['lang'] . ".php");
+	require_once("lang/" . $_SESSION['lang'] . ".php");
 }
 
 // g_defError is a shorthand for general_defineError and defines the error array in a more compact way

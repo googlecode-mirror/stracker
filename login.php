@@ -2,10 +2,10 @@
 	// This is the page on which the user will land if not logged in
 	// Contains only the login formula
 	require_once "inc/auth.php";
-	
+
 	if(isset($_SESSION['uid'])){header("Location: home.php");} //Redirect to home page if already logged in
 	if(isset($_POST['takeuser'])){auth_validate($_POST['takeuser'],$_POST['takepass']);} //Validate the user information if any and redirect
-	
+
 	// Begin HTML
 	$out = '
 			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
