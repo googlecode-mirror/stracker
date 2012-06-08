@@ -1,0 +1,14 @@
+body{
+	background: url(img/login/bg.png) black fixed center no-repeat;
+	color: white;
+}
+#registerbox{
+	position:absolute;
+	top: 50%;
+	left: 50%;
+	width:30em;
+	height:20em;
+	margin-top: -10em;
+	margin-left: -15em;
+	text-align:center;
+}

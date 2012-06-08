@@ -1,10 +1,10 @@
 <?php
 // This is the configuration file.
 // You don't have to fill this out manually, but in case you end up breaking the settings
-// You can open this file to edit them.
-	
+// you can open this file to edit them.
+global $cfg;
 $cfg = array(
-'baseurl' => '/', // Defines the root folder of STracker. Usually also the webroot.
+'baseurl' => 'http://localhost/', // Defines the root folder of STracker. Usually also the webroot.
 'publickey' => '123456789', // The public key used for the captcha turing tests
 'privatekey' => '123456789', // The private key used for the captcha turing tests
 'default_lang' => 'en_UK', // Default language file for new users
@@ -15,5 +15,7 @@ $cfg = array(
 'default_theme' => 'default', // The theme to be loaded if no user is logged in or no theme is set
 'title' => 'My Tracker', // The title of the website for page head
 'description' => 'This is an awesome private tracker', // The meta description of the website
-'keywords' => '' // Meta keywords for SEO
+'keywords' => '', // Meta keywords for SEO
+'email' => 'me@domain.com' // The e-mail address to send mails as
 );
+?>
